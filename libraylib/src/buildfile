@@ -8,10 +8,11 @@ lib{raylib}: {h}{raylib raymath rlgl rcamera config rgestures} \
              $impl_libs $intf_libs
 
 # Platform backends and vendored third-party code are #included, not compiled
-# as separate translation units. Keep them as adhoc so they are distributed.
+# as separate translation units. Use file{**} so Objective-C (.m) GLFW sources
+# and other non-.c/.h assets are distributed (required for macOS).
 #
-lib{raylib}: platforms/{h c}{**}: include = adhoc
-lib{raylib}: external/{h c}{**}: include = adhoc
+lib{raylib}: platforms/file{**}: include = adhoc
+lib{raylib}: external/file{**}: include = adhoc
 
 # Build options.
 #

@@ -1,6 +1,6 @@
-# Uncomment to suppress warnings coming from external libraries.
+# Suppress warnings coming from vendored third-party headers (GLFW, stb, etc.).
 #
-#c.internal.scope = current
+c.internal.scope = current
 
 using c
 
