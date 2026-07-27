@@ -1,0 +1,3 @@
+import libs = libraylib%lib{raylib}
+
+exe{driver}: {h c}{**} $libs testscript{**}

@@ -1,0 +1,19 @@
+: 1
+name: libraylib
+version: 6.0.0-a.0.z
+language: c
+project: raylib
+summary: simple and easy-to-use library to enjoy videogames programming
+license: Zlib
+description-file: README.md
+package-description-file: PACKAGE-README.md
+changes-file: CHANGELOG
+url: https://www.raylib.com
+doc-url: https://www.raylib.com/cheatsheet/cheatsheet.html
+src-url: https://github.com/raysan5/raylib
+email: raysan5@gmail.com
+package-url: https://github.com/build2-packaging/raylib
+package-email: packaging@build2.org
+topics: games, graphics, multimedia, opengl
+depends: * build2 >= 0.17.0
+depends: * bpkg >= 0.17.0

@@ -1,0 +1,128 @@
+intf_libs = # Interface dependencies.
+impl_libs = # Implementation dependencies.
+
+# Public headers, private headers, and compiled modules.
+#
+lib{raylib}: {h}{raylib raymath rlgl rcamera config rgestures} \
+             {c}{rcore rshapes rtextures rtext rmodels raudio rglfw} \
+             $impl_libs $intf_libs
+
+# Platform backends and vendored third-party code are #included, not compiled
+# as separate translation units. Keep them as adhoc so they are distributed.
+#
+lib{raylib}: platforms/{h c}{**}: include = adhoc
+lib{raylib}: external/{h c}{**}: include = adhoc
+
+# Build options.
+#
+c.poptions =+ "-I$src_base" "-I$src_base/external/glfw/include"
+
+c.poptions += -DPLATFORM_DESKTOP_GLFW -DGRAPHICS_API_OPENGL_33
+
+if ($c.target.class == 'windows')
+{
+  c.poptions += -D_CRT_SECURE_NO_WARNINGS -DUNICODE -D_UNICODE
+
+  # GLFW/glad and Windows headers both define APIENTRY.
+  #
+  if ($c.id == 'msvc')
+    c.coptions += /wd4005
+}
+else
+{
+  c.poptions += -D_GNU_SOURCE
+
+  # Bundled GLFW defaults to X11 on Linux (upstream Makefile default).
+  #
+  if ($c.target.class == 'linux')
+    c.poptions += -D_GLFW_X11
+}
+
+# Upstream RLAPI export macros (shared library only).
+#
+objs{*}: c.poptions += -DBUILD_LIBTYPE_SHARED
+
+# rglfw.c includes Objective-C sources on macOS.
+#
+if ($c.target.class == 'macos')
+  c{rglfw}: c.coptions += -x objective-c
+
+# System libraries (implementation and interface as needed by consumers).
+#
+switch $c.target.class, $c.target.system
+{
+  case 'windows', 'mingw32'
+  {
+    c.libs += -lopengl32 -lgdi32 -lwinmm
+  }
+  case 'windows'
+  {
+    c.libs += opengl32.lib gdi32.lib winmm.lib shell32.lib user32.lib
+  }
+  case 'macos'
+  {
+    c.libs += -framework OpenGL -framework Cocoa -framework IOKit \
+              -framework CoreVideo -framework CoreAudio
+  }
+  case 'linux'
+  {
+    c.libs += -lGL -lm -lpthread -ldl -lrt -lX11
+  }
+  default
+  {
+    if ($c.target.class != 'windows')
+      c.libs += -lm -lpthread
+  }
+}
+
+# Export options.
+#
+lib{raylib}:
+{
+  c.export.poptions = "-I$src_base"
+  c.export.libs = $intf_libs
+}
+
+# Consumers of the shared library need USE_LIBTYPE_SHARED for RLAPI.
+#
+libs{raylib}: c.export.poptions += -DUSE_LIBTYPE_SHARED
+
+# Propagate system libraries that consumers need when linking.
+#
+switch $c.target.class, $c.target.system
+{
+  case 'windows', 'mingw32'
+    lib{raylib}: c.export.libs += -lopengl32 -lgdi32 -lwinmm
+  case 'windows'
+    lib{raylib}: c.export.libs += opengl32.lib gdi32.lib winmm.lib shell32.lib user32.lib
+  case 'macos'
+    lib{raylib}: c.export.libs += -framework OpenGL -framework Cocoa \
+                                  -framework IOKit -framework CoreVideo \
+                                  -framework CoreAudio
+  case 'linux'
+    lib{raylib}: c.export.libs += -lGL -lm -lpthread -ldl -lrt -lX11
+  default
+  {
+    if ($c.target.class != 'windows')
+      lib{raylib}: c.export.libs += -lm -lpthread
+  }
+}
+
+# For pre-releases use the complete version to make sure they cannot
+# be used in place of another pre-release or the final version. See
+# the version module for details on the version.* variable values.
+#
+if $version.pre_release
+  lib{raylib}: bin.lib.version = "-$version.project_id"
+else
+  lib{raylib}: bin.lib.version = "-$version.major.$version.minor"
+
+# Install public headers flat into include/ (upstream convention:
+# #include <raylib.h>). Do not install private headers.
+#
+h{*}: install = false
+
+h{raylib}@./:  install = include/
+h{raymath}@./: install = include/
+h{rlgl}@./:    install = include/
+h{rcamera}@./: install = include/
