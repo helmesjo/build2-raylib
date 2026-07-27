@@ -1,14 +1,42 @@
-import libs = libraylib%lib{raylib}
+# Prefer the static library for examples. Several demos compile raygui with
+# RAYGUI_IMPLEMENTATION. Linking the shared libraylib would export
+# USE_LIBTYPE_SHARED (for RLAPI dllimport), which makes raygui declare the same
+# symbols as dllimport while defining them in the TU (MSVC C4273).
+#
+import libs = libraylib%liba{raylib}
 
 # Interactive GUI demos: compile to validate the public API, but do not run
 # them as automated tests (they open windows and expect user input).
 #
 exe{*}: test = false
 
-# Categories that only depend on raylib (and in-tree resources).
+# Categories gated by optional modules (defaults match config.libraylib.*).
 # Exclude others/ examples that pull in vendored GLFW/glad under others/external/.
 #
-for d: audio core models shaders shapes text textures others
+example_dirs =
+
+if $config.libraylib.module_audio
+  example_dirs += audio
+
+example_dirs += core
+
+if $config.libraylib.module_models
+  example_dirs += models
+
+example_dirs += shaders
+
+if $config.libraylib.module_shapes
+  example_dirs += shapes
+
+if $config.libraylib.module_text
+  example_dirs += text
+
+if $config.libraylib.module_textures
+  example_dirs += textures
+
+example_dirs += others
+
+for d: $example_dirs
 {
   for t: $d/c{*}
   {

@@ -10,3 +10,110 @@ c{*}: extension = c
 # The test target for cross-testing (running tests under Wine, etc).
 #
 test.target = $c.target
+
+# ---------------------------------------------------------------------------
+# Project configuration (defaults match upstream src/config.h and desktop
+# Makefile/CMake defaults where applicable).
+#
+# Feature flags map to -DSUPPORT_*=0|1 (and related defines). Module booleans
+# also gate which .c translation units are compiled.
+# ---------------------------------------------------------------------------
+
+# Graphics API (maps to GRAPHICS_API_*).
+#
+# Values: opengl-4.3, opengl-3.3, opengl-2.1, opengl-1.1,
+#         opengl-es2, opengl-es3, software
+#
+config [string] config.libraylib.graphics ?= 'opengl-3.3'
+
+# Use system/cppget GLFW instead of compiling bundled rglfw.c.
+#
+config [bool] config.libraylib.external_glfw ?= false
+
+# Bundled GLFW Linux backends (ignored when external_glfw is true, and on
+# non-Linux). At least one of x11/wayland must be true on Linux with bundled
+# GLFW (upstream rglfw requirement).
+#
+config [bool] config.libraylib.glfw_x11     ?= true
+config [bool] config.libraylib.glfw_wayland ?= false
+
+# Optional modules (mandatory: rcore / rlgl via rcore).
+#
+config [bool] config.libraylib.module_shapes   ?= true
+config [bool] config.libraylib.module_textures ?= true
+config [bool] config.libraylib.module_text     ?= true
+config [bool] config.libraylib.module_models   ?= true
+config [bool] config.libraylib.module_audio    ?= true
+
+# Module: rcore
+#
+config [bool] config.libraylib.tracelog              ?= true
+config [bool] config.libraylib.camera_system         ?= true
+config [bool] config.libraylib.gestures_system       ?= true
+config [bool] config.libraylib.rprand_generator      ?= true
+config [bool] config.libraylib.mouse_gestures        ?= true
+config [bool] config.libraylib.ssh_keyboard_rpi      ?= true
+config [bool] config.libraylib.winmm_highres_timer   ?= true
+config [bool] config.libraylib.busy_wait_loop        ?= false
+config [bool] config.libraylib.partialbusy_wait_loop ?= true
+config [bool] config.libraylib.screen_capture        ?= true
+config [bool] config.libraylib.compression_api       ?= true
+config [bool] config.libraylib.automation_events     ?= true
+config [bool] config.libraylib.custom_frame_control  ?= false
+config [bool] config.libraylib.clipboard_image       ?= true
+
+# Module: rlgl
+#
+config [bool] config.libraylib.opengl_debug_context ?= false
+config [bool] config.libraylib.show_gl_details_info ?= false
+
+# Module: rshapes
+#
+config [bool] config.libraylib.quads_draw_mode ?= true
+
+# Module: rtextures -- image formats and features
+#
+config [bool] config.libraylib.fileformat_png  ?= true
+config [bool] config.libraylib.fileformat_bmp  ?= true
+config [bool] config.libraylib.fileformat_tga  ?= false
+config [bool] config.libraylib.fileformat_jpg  ?= false
+config [bool] config.libraylib.fileformat_gif  ?= true
+config [bool] config.libraylib.fileformat_qoi  ?= true
+config [bool] config.libraylib.fileformat_psd  ?= false
+config [bool] config.libraylib.fileformat_dds  ?= true
+config [bool] config.libraylib.fileformat_hdr  ?= false
+config [bool] config.libraylib.fileformat_pic  ?= false
+config [bool] config.libraylib.fileformat_pnm  ?= false
+config [bool] config.libraylib.fileformat_ktx  ?= false
+config [bool] config.libraylib.fileformat_astc ?= false
+config [bool] config.libraylib.fileformat_pkm  ?= false
+config [bool] config.libraylib.fileformat_pvr  ?= false
+config [bool] config.libraylib.image_export     ?= true
+config [bool] config.libraylib.image_generation ?= true
+
+# Module: rtext -- font formats
+#
+config [bool] config.libraylib.fileformat_ttf ?= true
+config [bool] config.libraylib.fileformat_fnt ?= true
+config [bool] config.libraylib.fileformat_bdf ?= false
+
+# Module: rmodels -- model formats and features
+#
+config [bool] config.libraylib.fileformat_obj   ?= true
+config [bool] config.libraylib.fileformat_mtl   ?= true
+config [bool] config.libraylib.fileformat_iqm   ?= true
+config [bool] config.libraylib.fileformat_gltf  ?= true
+config [bool] config.libraylib.fileformat_vox   ?= true
+config [bool] config.libraylib.fileformat_m3d   ?= true
+config [bool] config.libraylib.mesh_generation  ?= true
+config [bool] config.libraylib.gpu_skinning     ?= false
+
+# Module: raudio -- audio formats
+#
+config [bool] config.libraylib.fileformat_wav  ?= true
+config [bool] config.libraylib.fileformat_ogg  ?= true
+config [bool] config.libraylib.fileformat_mp3  ?= true
+config [bool] config.libraylib.fileformat_qoa  ?= true
+config [bool] config.libraylib.fileformat_flac ?= false
+config [bool] config.libraylib.fileformat_xm   ?= true
+config [bool] config.libraylib.fileformat_mod  ?= true
