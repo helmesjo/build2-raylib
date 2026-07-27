@@ -53,3 +53,17 @@ upstream embeds GLFW 3.4 while the stable cppget package is still on 3.3.x.
 This package currently exposes no package-specific configuration variables.
 Platform and graphics API follow upstream defaults (`PLATFORM_DESKTOP_GLFW`,
 `GRAPHICS_API_OPENGL_33`).
+
+## Examples
+
+Upstream desktop examples that depend only on raylib are compiled under
+`tests/examples/` (categories: audio, core, models, shaders, shapes, text,
+textures, and most of others). They are build-only targets (`test = false`)
+so interactive windows are not launched by `bdep test`.
+
+Not included (need extra vendored GLFW/glad under `examples/others/external/`):
+
+- `rlgl_standalone`
+- `raylib_opengl_interop`
+
+Related tools (`rexm`, `rlparser`) ship in the sibling `raylib-tools` package.

@@ -1,0 +1,22 @@
+import libs = libraylib%lib{raylib}
+
+# Interactive GUI demos: compile to validate the public API, but do not run
+# them as automated tests (they open windows and expect user input).
+#
+exe{*}: test = false
+
+# Categories that only depend on raylib (and in-tree resources).
+# Exclude others/ examples that pull in vendored GLFW/glad under others/external/.
+#
+for d: audio core models shaders shapes text textures others
+{
+  for t: $d/c{*}
+  {
+    n = $name($t)
+
+    if ($n == 'rlgl_standalone' || $n == 'raylib_opengl_interop')
+      continue
+
+    ./: exe{$n}: $t $libs
+  }
+}

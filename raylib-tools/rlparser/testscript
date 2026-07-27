@@ -1,0 +1,5 @@
+: help
+:
+$* >>EOE 2>&1 || true
+/.*usage|.*rlparser|.*Usage|.*error|.*Error|.*option.*/
+EOE

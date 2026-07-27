@@ -1,0 +1,11 @@
+import libs = libraylib%lib{raylib}
+
+./: exe{rexm}: c{rexm} $libs
+
+# rexm selects platform report names via PLATFORM_DESKTOP + OS macros.
+#
+c.poptions += -DPLATFORM_DESKTOP
+
+# Developer tool for the examples collection. Not an automated test.
+#
+exe{rexm}: test = false
