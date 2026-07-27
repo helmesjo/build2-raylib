@@ -39,9 +39,12 @@ else
     c.poptions += -D_GLFW_X11
 }
 
-# Upstream RLAPI export macros (shared library only).
+# Upstream RLAPI export macros (shared library only). Hide non-RLAPI
+# symbols so bundled GLFW does not leak into the shared library ABI.
 #
 objs{*}: c.poptions += -DBUILD_LIBTYPE_SHARED
+if ($c.target.class != 'windows')
+  objs{*}: c.coptions += -fvisibility=hidden
 
 # rglfw.c includes Objective-C sources on macOS.
 #
