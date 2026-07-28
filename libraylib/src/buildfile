@@ -1,10 +1,9 @@
 intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
 
-# Optional external GLFW (cppget package name is glfw).
+# GLFW from the build2 package (not the upstream-vendored tree).
 #
-if $config.libraylib.external_glfw
-  import impl_libs += glfw%lib{glfw}
+import impl_libs += glfw%lib{glfw}
 
 # ---------------------------------------------------------------------------
 # Graphics API
@@ -33,7 +32,7 @@ opengl-2.1, opengl-1.1, opengl-es2, opengl-es3, or software)"
 }
 
 # ---------------------------------------------------------------------------
-# Sources: always rcore (+ rglfw unless external GLFW). Optional modules.
+# Sources: rcore always. Optional modules.
 # ---------------------------------------------------------------------------
 #
 lib{raylib}: {h}{raylib raymath rlgl rcamera config rgestures} \
@@ -45,23 +44,19 @@ lib{raylib}: c{rtextures}: include = $config.libraylib.module_textures
 lib{raylib}: c{rtext}:     include = $config.libraylib.module_text
 lib{raylib}: c{rmodels}:   include = $config.libraylib.module_models
 lib{raylib}: c{raudio}:    include = $config.libraylib.module_audio
-lib{raylib}: c{rglfw}:     include = (!$config.libraylib.external_glfw)
 
-# Platform backends and vendored third-party code are #included, not compiled
-# as separate translation units. Use file{**} so Objective-C (.m) GLFW sources
-# and other non-.c/.h assets are distributed (required for macOS).
+# Platform backends and vendored third-party headers/sources are #included,
+# not compiled as separate translation units. Exclude upstream-vendored GLFW
+# (use the glfw package dependency instead of external/glfw/ / rglfw.c).
 #
 lib{raylib}: platforms/file{**}: include = adhoc
-lib{raylib}: external/file{**}: include = adhoc
+lib{raylib}: external/file{** -glfw/**}: include = adhoc
 
 # ---------------------------------------------------------------------------
 # Build options
 # ---------------------------------------------------------------------------
 #
 c.poptions =+ "-I$src_base"
-
-if! $config.libraylib.external_glfw
-  c.poptions =+ "-I$src_base/external/glfw/include"
 
 c.poptions += -DPLATFORM_DESKTOP_GLFW "-D$graphics_api"
 
@@ -165,35 +160,14 @@ else
   c.poptions += -D_GNU_SOURCE
 }
 
-# Bundled GLFW display backends (Linux only).
-#
-if (!$config.libraylib.external_glfw && $c.target.class == 'linux')
-{
-  if (!$config.libraylib.glfw_x11 && !$config.libraylib.glfw_wayland)
-    fail "config.libraylib.glfw_x11 and/or config.libraylib.glfw_wayland \
-must be true when using bundled GLFW on Linux"
-
-  if $config.libraylib.glfw_x11
-    c.poptions += -D_GLFW_X11
-
-  if $config.libraylib.glfw_wayland
-    c.poptions += -D_GLFW_WAYLAND
-}
-
-# Upstream RLAPI export macros (shared library only). Hide non-RLAPI
-# symbols so bundled GLFW does not leak into the shared library ABI.
+# Upstream RLAPI export macros (shared library only). Hide non-RLAPI symbols.
 #
 objs{*}: c.poptions += -DBUILD_LIBTYPE_SHARED
 if ($c.target.class != 'windows')
   objs{*}: c.coptions += -fvisibility=hidden
 
-# rglfw.c includes Objective-C sources on macOS.
-#
-if ($c.target.class == 'macos' && !$config.libraylib.external_glfw)
-  c{rglfw}: c.coptions += -x objective-c
-
 # ---------------------------------------------------------------------------
-# System libraries
+# System libraries (GLFW's own platform libs come from the glfw package).
 # ---------------------------------------------------------------------------
 #
 switch $c.target.class, $c.target.system
@@ -214,15 +188,6 @@ switch $c.target.class, $c.target.system
   case 'linux'
   {
     c.libs += -lGL -lm -lpthread -ldl -lrt
-
-    if (!$config.libraylib.external_glfw)
-    {
-      if $config.libraylib.glfw_x11
-        c.libs += -lX11
-
-      if $config.libraylib.glfw_wayland
-        c.libs += -lwayland-client -lwayland-cursor -lwayland-egl -lxkbcommon
-    }
   }
   default
   {
@@ -246,7 +211,6 @@ lib{raylib}:
   export.metadata = 1 libraylib
 
   libraylib.graphics          = [string] $config.libraylib.graphics
-  libraylib.external_glfw     = [bool] $config.libraylib.external_glfw
   libraylib.module_shapes     = [bool] $config.libraylib.module_shapes
   libraylib.module_textures   = [bool] $config.libraylib.module_textures
   libraylib.module_text       = [bool] $config.libraylib.module_text
@@ -269,19 +233,7 @@ switch $c.target.class, $c.target.system
                                   -framework IOKit -framework CoreVideo \
                                   -framework CoreAudio
   case 'linux'
-  {
     lib{raylib}: c.export.libs += -lGL -lm -lpthread -ldl -lrt
-
-    if (!$config.libraylib.external_glfw)
-    {
-      if $config.libraylib.glfw_x11
-        lib{raylib}: c.export.libs += -lX11
-
-      if $config.libraylib.glfw_wayland
-        lib{raylib}: c.export.libs += -lwayland-client -lwayland-cursor \
-                                      -lwayland-egl -lxkbcommon
-    }
-  }
   default
   {
     if ($c.target.class != 'windows')

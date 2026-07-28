@@ -26,17 +26,6 @@ test.target = $c.target
 #
 config [string] config.libraylib.graphics ?= 'opengl-3.3'
 
-# Use system/cppget GLFW instead of compiling bundled rglfw.c.
-#
-config [bool] config.libraylib.external_glfw ?= false
-
-# Bundled GLFW Linux backends (ignored when external_glfw is true, and on
-# non-Linux). At least one of x11/wayland must be true on Linux with bundled
-# GLFW (upstream rglfw requirement).
-#
-config [bool] config.libraylib.glfw_x11     ?= true
-config [bool] config.libraylib.glfw_wayland ?= false
-
 # Optional modules (mandatory: rcore / rlgl via rcore).
 #
 config [bool] config.libraylib.module_shapes   ?= true

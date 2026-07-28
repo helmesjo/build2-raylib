@@ -17,4 +17,4 @@ package-email: packaging@build2.org
 topics: games, graphics, multimedia, opengl
 depends: * build2 >= 0.17.0
 depends: * bpkg >= 0.17.0
-depends: glfw ^3.3.0 ? ($config.libraylib.external_glfw)
+depends: glfw ^3.4.0

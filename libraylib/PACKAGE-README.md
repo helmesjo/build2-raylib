@@ -49,15 +49,11 @@ configuration, or when building the package.
 | Variable | Type | Default | Maps to |
 |---|---|---|---|
 | `config.libraylib.graphics` | string | `opengl-3.3` | `GRAPHICS_API_*` |
-| `config.libraylib.external_glfw` | bool | `false` | system/cppget `glfw` instead of `rglfw.c` |
-| `config.libraylib.glfw_x11` | bool | `true` | `_GLFW_X11` (Linux, bundled GLFW) |
-| `config.libraylib.glfw_wayland` | bool | `false` | `_GLFW_WAYLAND` (Linux, bundled GLFW) |
 
 `config.libraylib.graphics` values: `opengl-4.3`, `opengl-3.3`, `opengl-2.1`,
 `opengl-1.1`, `opengl-es2`, `opengl-es3`, `software`.
 
-On Linux with bundled GLFW, at least one of `glfw_x11` / `glfw_wayland` must
-be true.
+Desktop windowing uses the `glfw` package dependency.
 
 ### Optional modules
 
@@ -146,7 +142,6 @@ bdep config create @msvc-cc cc \
 `lib{raylib}` exports metadata (prefix `libraylib`) for:
 
 - `libraylib.graphics`
-- `libraylib.external_glfw`
 - `libraylib.module_shapes` / `module_textures` / `module_text` /
   `module_models` / `module_audio`
 
