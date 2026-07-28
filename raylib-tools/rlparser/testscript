@@ -1,5 +1,51 @@
 : help
 :
-$* >>EOE 2>&1 || true
-/.*usage|.*rlparser|.*Usage|.*error|.*Error|.*option.*/
+$* --help >>EOE 2>&1 == 0
+
+//////////////////////////////////////////////////////////////////////////////////
+//                                                                              //
+// rlparser - raylib header API parser                                          //
+//                                                                              //
+// more info and bugs-report: github.com/raysan5/raylib/tools/rlparser          //
+//                                                                              //
+// Copyright (c) 2021-2026 Ramon Santamaria (@raysan5)                          //
+//                                                                              //
+//////////////////////////////////////////////////////////////////////////////////
+
+USAGE:
+
+    > rlparser [--help] [--input <filename.h>] [--output <filename.ext>] [--format <type>]
+
+OPTIONS:
+
+    -h, --help                      : Show tool version and command line usage help
+
+    -i, --input <filename.h>        : Define input header file to parse.
+                                      NOTE: If not specified, defaults to: raylib.h
+
+    -o, --output <filename.ext>     : Define output file and format.
+                                      Supported extensions: .txt, .json, .xml, .lua, .h
+                                      NOTE: If not specified, defaults to: raylib_api.txt
+
+    -f, --format <type>             : Define output format for parser data.
+                                      Supported types: DEFAULT, JSON, XML, LUA, CODE
+
+    -d, --define <DEF>              : Define functions specifiers (i.e. RLAPI for raylib.h, RMAPI for raymath.h, etc.)
+                                      NOTE: If no specifier defined, defaults to: RLAPI
+
+    -t, --truncate <after>          : Define string to truncate input after (i.e. "RLGL IMPLEMENTATION" for rlgl.h)
+                                      NOTE: If not specified, the full input file is parsed.
+
+
+EXAMPLES:
+
+    > rlparser --input raylib.h --output api.json
+        Process <raylib.h> to generate <api.json>
+
+    > rlparser --output raylib_data.info --format XML
+        Process <raylib.h> to generate <raylib_data.info> as XML text data
+
+    > rlparser --input raymath.h --output raymath_data.info --format XML --define RMAPI
+        Process <raymath.h> to generate <raymath_data.info> as XML text data
+
 EOE

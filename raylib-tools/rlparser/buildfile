@@ -1,4 +1,3 @@
-./: exe{rlparser}: c{rlparser} testscript
-
-# Standalone header parser (stdlib only). Smoke-test via testscript.
+# Standalone header parser (stdlib only).
 #
+./: exe{rlparser}: c{rlparser} testscript
