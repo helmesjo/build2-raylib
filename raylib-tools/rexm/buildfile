@@ -1,6 +1,10 @@
 import libs = libraylib%lib{raylib}
 
-./: exe{rexm}: c{rexm} $libs testscript
+# rexm calls text functions (LoadTextLines, TextIsEqual etc.) from rtext.
+# config.libraylib.* is scoped to libraylib's package; read from its metadata.
+#
+./: exe{rexm}: include = $($libs: libraylib.module_text)
+exe{rexm}: c{rexm} $libs testscript
 
 # rexm selects platform report names via PLATFORM_DESKTOP + OS macros.
 #
