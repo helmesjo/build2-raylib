@@ -34,6 +34,15 @@ config [bool] config.libraylib.module_text     ?= true
 config [bool] config.libraylib.module_models   ?= true
 config [bool] config.libraylib.module_audio    ?= true
 
+# rtext.c and rmodels.c call rtextures functions without full
+# SUPPORT_MODULE_RTEXTURES guards, producing linker errors without rtextures.
+#
+if ($config.libraylib.module_text && !$config.libraylib.module_textures)
+  fail "module_text requires module_textures: rtext.c calls LoadImage/DrawTexturePro which are in rtextures"
+
+if ($config.libraylib.module_models && !$config.libraylib.module_textures)
+  fail "module_models requires module_textures: rmodels.c calls LoadTexture/GetImageColor which are in rtextures"
+
 # Module: rcore
 #
 config [bool] config.libraylib.tracelog              ?= true

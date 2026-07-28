@@ -1,3 +1,6 @@
 import libs = libraylib%lib{raylib}
 
+# driver.c calls TextIsEqual() and TextLength() from rtext.
+#
+./: exe{driver}: include = $config.libraylib.module_text
 exe{driver}: {h c}{**} $libs testscript{**}
