@@ -1,0 +1,46 @@
+: help
+:
+$* --help >>EOE 2>&1 == 0
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                        //
+// rexm [raylib examples manager] - A simple command-line tool to manage raylib examples  //
+// powered by raylib v6.0                                                                 //
+//                                                                                        //
+// Copyright (c) 2025-2026 Ramon Santamaria (@raysan5)                                    //
+//                                                                                        //
+////////////////////////////////////////////////////////////////////////////////////////////
+
+USAGE:
+
+    > rexm <command> <example_name> [<example_rename>]
+
+COMMANDS:
+
+    create <new_example_name>     : Creates an empty example, from internal template
+    add <example_name>            : Add existing example, category extracted from name
+                                    Supported categories: core, shapes, textures, text, models
+    rename <old_examples_name> <new_example_name> : Rename an existing example
+    remove <example_name>         : Remove an existing example
+    build <example_name>          : Build example for Desktop and Web platforms
+    test <example_name>           : Build and Test example for Desktop and Web platforms
+    validate                      : Validate examples collection, generates report
+    update                        : Validate and update examples collection, generates report
+
+OPTIONS:
+
+    -h, --help                    : Show tool version and command line usage help
+    -v, --verbose                 : Verbose mode, show additional logs on processes
+
+EXAMPLES:
+
+    > rexm add shapes_custom_stars
+        Add and updates new example provided <shapes_custom_stars>
+
+    > rexm rename core_basic_window core_cool_window
+        Renames and updates example <core_basic_window> to <core_cool_window>
+
+    > rexm update
+        Validates all examples in collection and updates missing elements
+
+EOE

@@ -35,4 +35,4 @@ raylib-tools
 
 # Testscript output directory (can be symlink).
 #
-test-raylib-tools
+test-*
