@@ -11,40 +11,27 @@ import libs = libraylib%liba{raylib}
 exe{*}: test = false
 
 # Categories gated by optional modules (defaults match config.libraylib.*).
-# Exclude others/ examples that pull in vendored GLFW/glad under others/external/.
+#
+# Each category is a real directory on the build2 side with per-file source
+# symlinks and a package-side leaf resources/ symlink. Binaries are built into
+# the category directory so CWD-relative "resources/..." paths match upstream.
+#
+# fsdir{resources} is always a prerequisite (unique per category).
 #
 example_dirs =
 
-if $config.libraylib.module_audio
-  example_dirs += audio
-
-example_dirs += core
-
-if $config.libraylib.module_models
-  example_dirs += models
-
-example_dirs += shaders
-
-if $config.libraylib.module_shapes
-  example_dirs += shapes
-
-if $config.libraylib.module_text
-  example_dirs += text
-
-if $config.libraylib.module_textures
-  example_dirs += textures
-
-example_dirs += others
-
-for d: $example_dirs
+for t: dir{core others shaders                      \
+    ($config.libraylib.module_audio    ? audio:)    \
+    ($config.libraylib.module_models   ? models:)   \
+    ($config.libraylib.module_shapes   ? shapes:)   \
+    ($config.libraylib.module_text     ? text:)     \
+    ($config.libraylib.module_textures ? textures:) \
+  }
 {
-  for t: $d/c{*}
+  d = $name($t)
+  for t: $d/c{* -rlgl_standalone -raylib_opengl_interop}
   {
     n = $name($t)
-
-    if ($n == 'rlgl_standalone' || $n == 'raylib_opengl_interop')
-      continue
-
-    ./: exe{$n}: $t $libs
+    ./: $d/exe{$n}: $t $libs $d/fsdir{resources}
   }
 }

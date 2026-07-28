@@ -1,0 +1,1 @@
+../../../../upstream/examples/models/models_animation_gpu_skinning.c

@@ -1,0 +1,1 @@
+../../../../upstream/examples/shapes/shapes_ring_drawing.c

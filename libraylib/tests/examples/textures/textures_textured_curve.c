@@ -1,0 +1,1 @@
+../../../../upstream/examples/textures/textures_textured_curve.c

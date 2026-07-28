@@ -1,0 +1,1 @@
+../../../../upstream/examples/shaders/shaders_hybrid_rendering.c

@@ -1,0 +1,1 @@
+../../../../upstream/examples/core/core_2d_camera_split_screen.c

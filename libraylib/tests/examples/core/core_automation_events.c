@@ -1,0 +1,1 @@
+../../../../upstream/examples/core/core_automation_events.c

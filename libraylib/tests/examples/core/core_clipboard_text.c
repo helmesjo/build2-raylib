@@ -1,0 +1,1 @@
+../../../../upstream/examples/core/core_clipboard_text.c
