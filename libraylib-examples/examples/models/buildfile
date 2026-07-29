@@ -20,5 +20,5 @@ for t: c{*}
                                          $m_text     && \
                                          $m_shapes   && \
                                          $m_textures)
-  exe{example-$name($t)}: $t $libs file{resources/**}
+  exe{example-$name($t)}: $t h{*} $libs file{resources/**}
 }

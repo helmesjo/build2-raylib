@@ -18,7 +18,7 @@ for t: c{* -text_3d_drawing}
 {
   ./: exe{example-$name($t)}: include = ($m_text   && \
                                          $m_shapes)
-  exe{example-$name($t)}: $t $libs file{resources/**}
+  exe{example-$name($t)}: $t h{*} $libs file{resources/**}
 }
 
 # text_3d_drawing renders a 3D scene (DrawCubeV/DrawGrid from rmodels).
@@ -26,4 +26,4 @@ for t: c{* -text_3d_drawing}
                                              $m_shapes && \
                                              $m_models)
 exe{example-text_3d_drawing}: \
-  c{text_3d_drawing} $libs file{resources/**}
+  c{text_3d_drawing} h{*} $libs file{resources/**}

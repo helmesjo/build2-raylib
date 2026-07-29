@@ -21,7 +21,7 @@ for t: c{* -textures_sprite_button          \
   ./: exe{example-$name($t)}: include = ($m_textures && \
                                          $m_text     && \
                                          $m_shapes)
-  exe{example-$name($t)}: $t $libs file{resources/**}
+  exe{example-$name($t)}: $t h{*} $libs file{resources/**}
 }
 
 # textures_sprite_button/explosion play audio on click (call InitAudioDevice).
@@ -31,7 +31,7 @@ for t: c{textures_sprite_button textures_sprite_explosion}
                                          $m_text     && \
                                          $m_shapes   && \
                                          $m_audio)
-  exe{example-$name($t)}: $t $libs file{resources/**}
+  exe{example-$name($t)}: $t h{*} $libs file{resources/**}
 }
 
 # textures_framebuffer_rendering renders a 3D scene (DrawCube/DrawGrid from rmodels).
@@ -40,4 +40,4 @@ for t: c{textures_sprite_button textures_sprite_explosion}
                                                             $m_shapes   && \
                                                             $m_models)
 exe{example-textures_framebuffer_rendering}: \
-  c{textures_framebuffer_rendering} $libs file{resources/**}
+  c{textures_framebuffer_rendering} h{*} $libs file{resources/**}

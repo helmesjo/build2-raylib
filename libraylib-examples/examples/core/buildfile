@@ -27,7 +27,7 @@ for t: c{* -core_2d_camera_mouse_zoom              \
 {
   ./: exe{example-$name($t)}: include = ($m_text && \
                                          $m_shapes)
-  exe{example-$name($t)}: $t $libs file{resources/**}
+  exe{example-$name($t)}: $t h{*} $libs file{resources/**}
 }
 
 for t: c{core_2d_camera_mouse_zoom   \
@@ -43,5 +43,5 @@ for t: c{core_2d_camera_mouse_zoom   \
   ./: exe{example-$name($t)}: include = ($m_text   && \
                                          $m_shapes && \
                                          $m_models)
-  exe{example-$name($t)}: $t $libs file{resources/**}
+  exe{example-$name($t)}: $t h{*} $libs file{resources/**}
 }

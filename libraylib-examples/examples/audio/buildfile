@@ -19,7 +19,7 @@ for t: c{* -audio_sound_positioning}
   ./: exe{example-$name($t)}: include = ($m_audio && \
                                          $m_text  && \
                                          $m_shapes)
-  exe{example-$name($t)}: $t $libs file{resources/**}
+  exe{example-$name($t)}: $t h{*} $libs file{resources/**}
 }
 
 # audio_sound_positioning renders a 3D scene (DrawGrid/DrawSphere from rmodels).
@@ -28,4 +28,4 @@ for t: c{* -audio_sound_positioning}
                                                      $m_shapes && \
                                                      $m_models)
 exe{example-audio_sound_positioning}: \
-  c{audio_sound_positioning} $libs file{resources/**}
+  c{audio_sound_positioning} h{*} $libs file{resources/**}
