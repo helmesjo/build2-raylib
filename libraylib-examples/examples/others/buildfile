@@ -1,4 +1,4 @@
-import! [metadata] raylib = libraylib%lib{raylib}
+import! [metadata, rule_hint=c.link] raylib = libraylib%lib{raylib}
 
 # Some demos compile raygui with RAYGUI_IMPLEMENTATION; the shared library's
 # USE_LIBTYPE_SHARED exports RLAPI as dllimport, conflicting with the in-TU
