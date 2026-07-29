@@ -26,9 +26,9 @@ switch $config.libraylib.graphics
   case 'software'
     graphics_api = GRAPHICS_API_OPENGL_SOFTWARE
   default
-    fail "invalid config.libraylib.graphics value \
-'$config.libraylib.graphics' (expected opengl-4.3, opengl-3.3, \
-opengl-2.1, opengl-1.1, opengl-es2, opengl-es3, or software)"
+    fail "invalid config.libraylib.graphics value"                        \
+         "'$config.libraylib.graphics' (expected opengl-4.3, opengl-3.3," \
+         "opengl-2.1, opengl-1.1, opengl-es2, opengl-es3, or software)"
 }
 
 # ---------------------------------------------------------------------------
@@ -52,9 +52,7 @@ lib{raylib}: c{raudio}:    include = $config.libraylib.module_audio
 lib{raylib}: platforms/file{**}: include = adhoc
 lib{raylib}: external/file{** -glfw/**}: include = adhoc
 
-# ---------------------------------------------------------------------------
-# Build options
-# ---------------------------------------------------------------------------
+# Build options.
 #
 c.poptions =+ "-I$src_base"
 
@@ -93,7 +91,7 @@ c.poptions += ($config.libraylib.clipboard_image       ? -DSUPPORT_CLIPBOARD_IMA
 # rlgl
 #
 c.poptions += ($config.libraylib.opengl_debug_context ? -DRLGL_ENABLE_OPENGL_DEBUG_CONTEXT=1 : -DRLGL_ENABLE_OPENGL_DEBUG_CONTEXT=0)
-c.poptions += ($config.libraylib.show_gl_details_info ? -DRLGL_SHOW_GL_DETAILS_INFO=1       : -DRLGL_SHOW_GL_DETAILS_INFO=0)
+c.poptions += ($config.libraylib.show_gl_details_info ? -DRLGL_SHOW_GL_DETAILS_INFO=1        : -DRLGL_SHOW_GL_DETAILS_INFO=0)
 
 # rshapes
 #
@@ -101,21 +99,21 @@ c.poptions += ($config.libraylib.quads_draw_mode ? -DSUPPORT_QUADS_DRAW_MODE=1 :
 
 # rtextures
 #
-c.poptions += ($config.libraylib.fileformat_png  ? -DSUPPORT_FILEFORMAT_PNG=1  : -DSUPPORT_FILEFORMAT_PNG=0)
-c.poptions += ($config.libraylib.fileformat_bmp  ? -DSUPPORT_FILEFORMAT_BMP=1  : -DSUPPORT_FILEFORMAT_BMP=0)
-c.poptions += ($config.libraylib.fileformat_tga  ? -DSUPPORT_FILEFORMAT_TGA=1  : -DSUPPORT_FILEFORMAT_TGA=0)
-c.poptions += ($config.libraylib.fileformat_jpg  ? -DSUPPORT_FILEFORMAT_JPG=1  : -DSUPPORT_FILEFORMAT_JPG=0)
-c.poptions += ($config.libraylib.fileformat_gif  ? -DSUPPORT_FILEFORMAT_GIF=1  : -DSUPPORT_FILEFORMAT_GIF=0)
-c.poptions += ($config.libraylib.fileformat_qoi  ? -DSUPPORT_FILEFORMAT_QOI=1  : -DSUPPORT_FILEFORMAT_QOI=0)
-c.poptions += ($config.libraylib.fileformat_psd  ? -DSUPPORT_FILEFORMAT_PSD=1  : -DSUPPORT_FILEFORMAT_PSD=0)
-c.poptions += ($config.libraylib.fileformat_dds  ? -DSUPPORT_FILEFORMAT_DDS=1  : -DSUPPORT_FILEFORMAT_DDS=0)
-c.poptions += ($config.libraylib.fileformat_hdr  ? -DSUPPORT_FILEFORMAT_HDR=1  : -DSUPPORT_FILEFORMAT_HDR=0)
-c.poptions += ($config.libraylib.fileformat_pic  ? -DSUPPORT_FILEFORMAT_PIC=1  : -DSUPPORT_FILEFORMAT_PIC=0)
-c.poptions += ($config.libraylib.fileformat_pnm  ? -DSUPPORT_FILEFORMAT_PNM=1  : -DSUPPORT_FILEFORMAT_PNM=0)
-c.poptions += ($config.libraylib.fileformat_ktx  ? -DSUPPORT_FILEFORMAT_KTX=1  : -DSUPPORT_FILEFORMAT_KTX=0)
-c.poptions += ($config.libraylib.fileformat_astc ? -DSUPPORT_FILEFORMAT_ASTC=1 : -DSUPPORT_FILEFORMAT_ASTC=0)
-c.poptions += ($config.libraylib.fileformat_pkm  ? -DSUPPORT_FILEFORMAT_PKM=1  : -DSUPPORT_FILEFORMAT_PKM=0)
-c.poptions += ($config.libraylib.fileformat_pvr  ? -DSUPPORT_FILEFORMAT_PVR=1  : -DSUPPORT_FILEFORMAT_PVR=0)
+c.poptions += ($config.libraylib.fileformat_png  ? -DSUPPORT_FILEFORMAT_PNG=1    : -DSUPPORT_FILEFORMAT_PNG=0)
+c.poptions += ($config.libraylib.fileformat_bmp  ? -DSUPPORT_FILEFORMAT_BMP=1    : -DSUPPORT_FILEFORMAT_BMP=0)
+c.poptions += ($config.libraylib.fileformat_tga  ? -DSUPPORT_FILEFORMAT_TGA=1    : -DSUPPORT_FILEFORMAT_TGA=0)
+c.poptions += ($config.libraylib.fileformat_jpg  ? -DSUPPORT_FILEFORMAT_JPG=1    : -DSUPPORT_FILEFORMAT_JPG=0)
+c.poptions += ($config.libraylib.fileformat_gif  ? -DSUPPORT_FILEFORMAT_GIF=1    : -DSUPPORT_FILEFORMAT_GIF=0)
+c.poptions += ($config.libraylib.fileformat_qoi  ? -DSUPPORT_FILEFORMAT_QOI=1    : -DSUPPORT_FILEFORMAT_QOI=0)
+c.poptions += ($config.libraylib.fileformat_psd  ? -DSUPPORT_FILEFORMAT_PSD=1    : -DSUPPORT_FILEFORMAT_PSD=0)
+c.poptions += ($config.libraylib.fileformat_dds  ? -DSUPPORT_FILEFORMAT_DDS=1    : -DSUPPORT_FILEFORMAT_DDS=0)
+c.poptions += ($config.libraylib.fileformat_hdr  ? -DSUPPORT_FILEFORMAT_HDR=1    : -DSUPPORT_FILEFORMAT_HDR=0)
+c.poptions += ($config.libraylib.fileformat_pic  ? -DSUPPORT_FILEFORMAT_PIC=1    : -DSUPPORT_FILEFORMAT_PIC=0)
+c.poptions += ($config.libraylib.fileformat_pnm  ? -DSUPPORT_FILEFORMAT_PNM=1    : -DSUPPORT_FILEFORMAT_PNM=0)
+c.poptions += ($config.libraylib.fileformat_ktx  ? -DSUPPORT_FILEFORMAT_KTX=1    : -DSUPPORT_FILEFORMAT_KTX=0)
+c.poptions += ($config.libraylib.fileformat_astc ? -DSUPPORT_FILEFORMAT_ASTC=1   : -DSUPPORT_FILEFORMAT_ASTC=0)
+c.poptions += ($config.libraylib.fileformat_pkm  ? -DSUPPORT_FILEFORMAT_PKM=1    : -DSUPPORT_FILEFORMAT_PKM=0)
+c.poptions += ($config.libraylib.fileformat_pvr  ? -DSUPPORT_FILEFORMAT_PVR=1    : -DSUPPORT_FILEFORMAT_PVR=0)
 c.poptions += ($config.libraylib.image_export     ? -DSUPPORT_IMAGE_EXPORT=1     : -DSUPPORT_IMAGE_EXPORT=0)
 c.poptions += ($config.libraylib.image_generation ? -DSUPPORT_IMAGE_GENERATION=1 : -DSUPPORT_IMAGE_GENERATION=0)
 
@@ -196,10 +194,9 @@ switch $c.target.class, $c.target.system
   }
 }
 
-# ---------------------------------------------------------------------------
-# Export options and metadata
-# ---------------------------------------------------------------------------
+# Export options.
 #
+
 # Include path is common. USE_LIBTYPE_SHARED is only for the shared variant so
 # consumers get RLAPI as dllimport (matches upstream CMake INSTALL_INTERFACE).
 #
@@ -211,11 +208,11 @@ lib{raylib}:
   export.metadata = 1 libraylib
 
   libraylib.graphics          = [string] $config.libraylib.graphics
-  libraylib.module_shapes     = [bool] $config.libraylib.module_shapes
-  libraylib.module_textures   = [bool] $config.libraylib.module_textures
-  libraylib.module_text       = [bool] $config.libraylib.module_text
-  libraylib.module_models     = [bool] $config.libraylib.module_models
-  libraylib.module_audio      = [bool] $config.libraylib.module_audio
+  libraylib.module_shapes     = [bool]   $config.libraylib.module_shapes
+  libraylib.module_textures   = [bool]   $config.libraylib.module_textures
+  libraylib.module_text       = [bool]   $config.libraylib.module_text
+  libraylib.module_models     = [bool]   $config.libraylib.module_models
+  libraylib.module_audio      = [bool]   $config.libraylib.module_audio
 }
 
 libs{raylib}: c.export.poptions += -DUSE_LIBTYPE_SHARED
@@ -255,7 +252,13 @@ else
 #
 h{*}: install = false
 
-h{raylib}@./:  install = include/
-h{raymath}@./: install = include/
-h{rlgl}@./:    install = include/
-h{rcamera}@./: install = include/
+h{raylib}@./:  install = include/raylib/
+h{raymath}@./: install = include/raylib/
+h{rlgl}@./:    install = include/raylib/
+h{rcamera}@./: install = include/raylib/
+
+# Make sure headers installed into, /usr/include/libraylib/ can
+# also be included without the directory prefix for backwards
+# compatibility.
+#
+lib{raylib}: cxx.pkgconfig.include = include/ include/raylib/
