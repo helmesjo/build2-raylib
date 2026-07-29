@@ -15,6 +15,7 @@ email: raysan5@gmail.com
 package-url: https://github.com/build2-packaging/raylib
 package-email: packaging@build2.org
 topics: games, graphics, multimedia, opengl
+examples: libraylib-examples ~$
 depends: * build2 >= 0.17.0
 depends: * bpkg >= 0.17.0
 depends: glfw ^3.4.0

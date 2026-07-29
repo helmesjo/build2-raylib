@@ -1,0 +1,1 @@
+../../../upstream/examples/text/text_writing_anim.c

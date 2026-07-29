@@ -1,7 +1,6 @@
 import libs = libraylib%lib{raylib}
 
 # rexm calls text functions (LoadTextLines, TextIsEqual etc.) from rtext.
-# config.libraylib.* is scoped to libraylib's package; read from its metadata.
 #
 ./: exe{rexm}: include = $($libs: libraylib.module_text)
 exe{rexm}: c{rexm} $libs testscript

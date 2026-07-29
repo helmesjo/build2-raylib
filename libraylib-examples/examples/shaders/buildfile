@@ -1,0 +1,63 @@
+import! [metadata] raylib = libraylib%lib{raylib}
+
+# Some demos compile raygui with RAYGUI_IMPLEMENTATION; the shared library's
+# USE_LIBTYPE_SHARED exports RLAPI as dllimport, conflicting with the in-TU
+# definition (MSVC C4273). Force static linking.
+#
+import libs = libraylib%liba{raylib}
+
+m_audio    = $($raylib: libraylib.module_audio)
+m_models   = $($raylib: libraylib.module_models)
+m_shapes   = $($raylib: libraylib.module_shapes)
+m_text     = $($raylib: libraylib.module_text)
+m_textures = $($raylib: libraylib.module_textures)
+
+# shaders: split on 3D geometry -- model-dependent examples load or draw 3D
+# geometry via rmodels.
+#
+for t: c{* -shaders_basic_lighting                         \
+           -shaders_basic_pbr -shaders_cel_shading         \
+           -shaders_custom_uniform                         \
+           -shaders_deferred_rendering                     \
+           -shaders_depth_rendering                        \
+           -shaders_depth_writing                          \
+           -shaders_fog_rendering                          \
+           -shaders_hybrid_rendering                       \
+           -shaders_lightmap_rendering                     \
+           -shaders_mesh_instancing                        \
+           -shaders_model_shader                           \
+           -shaders_normalmap_rendering                    \
+           -shaders_postprocessing                         \
+           -shaders_shadowmap_rendering                    \
+           -shaders_simple_mask                            \
+           -shaders_texture_tiling                         \
+           -shaders_vertex_displacement}
+{
+  ./: exe{example-$name($t)}: include = ($m_text && \
+                                         $m_shapes)
+  exe{example-$name($t)}: $t $libs file{resources/**}
+}
+
+for t: c{shaders_basic_lighting                           \
+         shaders_basic_pbr shaders_cel_shading            \
+         shaders_custom_uniform                           \
+         shaders_deferred_rendering                       \
+         shaders_depth_rendering                          \
+         shaders_depth_writing                            \
+         shaders_fog_rendering                            \
+         shaders_hybrid_rendering                         \
+         shaders_lightmap_rendering                       \
+         shaders_mesh_instancing                          \
+         shaders_model_shader                             \
+         shaders_normalmap_rendering                      \
+         shaders_postprocessing                           \
+         shaders_shadowmap_rendering                      \
+         shaders_simple_mask                              \
+         shaders_texture_tiling                           \
+         shaders_vertex_displacement}
+{
+  ./: exe{example-$name($t)}: include = ($m_text   && \
+                                         $m_shapes && \
+                                         $m_models)
+  exe{example-$name($t)}: $t $libs file{resources/**}
+}

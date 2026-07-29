@@ -1,0 +1,23 @@
+import! [metadata] raylib = libraylib%lib{raylib}
+
+# Some demos compile raygui with RAYGUI_IMPLEMENTATION; the shared library's
+# USE_LIBTYPE_SHARED exports RLAPI as dllimport, conflicting with the in-TU
+# definition (MSVC C4273). Force static linking.
+#
+import libs = libraylib%liba{raylib}
+
+m_audio    = $($raylib: libraylib.module_audio)
+m_models   = $($raylib: libraylib.module_models)
+m_shapes   = $($raylib: libraylib.module_shapes)
+m_text     = $($raylib: libraylib.module_text)
+m_textures = $($raylib: libraylib.module_textures)
+
+# others: only embedded_files_loading is compiled.
+# rlgl_standalone and raylib_opengl_interop are not built (see above).
+#
+for t: c{* -rlgl_standalone -raylib_opengl_interop}
+{
+  ./: exe{example-$name($t)}: include = ($m_audio && \
+                                         $m_text)
+  exe{example-$name($t)}: $t $libs file{resources/**}
+}

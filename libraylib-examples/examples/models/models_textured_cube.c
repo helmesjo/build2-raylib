@@ -1,0 +1,1 @@
+../../../upstream/examples/models/models_textured_cube.c

@@ -1,0 +1,1 @@
+../../../upstream/examples/core/core_3d_camera_mode.c

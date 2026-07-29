@@ -1,0 +1,1 @@
+../../../upstream/examples/core/core_keyboard_testbed.c

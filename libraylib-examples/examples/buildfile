@@ -1,6 +1,0 @@
-libs =
-#import libs += libhello%lib{hello}
-
-exe{libraylib-examples}: {h c}{**} $libs
-
-c.poptions =+ "-I$out_root" "-I$src_root"

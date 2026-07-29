@@ -1,0 +1,43 @@
+import! [metadata] raylib = libraylib%lib{raylib}
+
+# Some demos compile raygui with RAYGUI_IMPLEMENTATION; the shared library's
+# USE_LIBTYPE_SHARED exports RLAPI as dllimport, conflicting with the in-TU
+# definition (MSVC C4273). Force static linking.
+#
+import libs = libraylib%liba{raylib}
+
+m_audio    = $($raylib: libraylib.module_audio)
+m_models   = $($raylib: libraylib.module_models)
+m_shapes   = $($raylib: libraylib.module_shapes)
+m_text     = $($raylib: libraylib.module_text)
+m_textures = $($raylib: libraylib.module_textures)
+
+# textures
+#
+for t: c{* -textures_sprite_button          \
+           -textures_sprite_explosion       \
+           -textures_framebuffer_rendering}
+{
+  ./: exe{example-$name($t)}: include = ($m_textures && \
+                                         $m_text     && \
+                                         $m_shapes)
+  exe{example-$name($t)}: $t $libs file{resources/**}
+}
+
+# textures_sprite_button/explosion play audio on click (call InitAudioDevice).
+for t: c{textures_sprite_button textures_sprite_explosion}
+{
+  ./: exe{example-$name($t)}: include = ($m_textures && \
+                                         $m_text     && \
+                                         $m_shapes   && \
+                                         $m_audio)
+  exe{example-$name($t)}: $t $libs file{resources/**}
+}
+
+# textures_framebuffer_rendering renders a 3D scene (DrawCube/DrawGrid from rmodels).
+./: exe{example-textures_framebuffer_rendering}: include = ($m_textures && \
+                                                            $m_text     && \
+                                                            $m_shapes   && \
+                                                            $m_models)
+exe{example-textures_framebuffer_rendering}: \
+  c{textures_framebuffer_rendering} $libs file{resources/**}

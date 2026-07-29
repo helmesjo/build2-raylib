@@ -1,0 +1,29 @@
+import! [metadata] raylib = libraylib%lib{raylib}
+
+# Some demos compile raygui with RAYGUI_IMPLEMENTATION; the shared library's
+# USE_LIBTYPE_SHARED exports RLAPI as dllimport, conflicting with the in-TU
+# definition (MSVC C4273). Force static linking.
+#
+import libs = libraylib%liba{raylib}
+
+m_audio    = $($raylib: libraylib.module_audio)
+m_models   = $($raylib: libraylib.module_models)
+m_shapes   = $($raylib: libraylib.module_shapes)
+m_text     = $($raylib: libraylib.module_text)
+m_textures = $($raylib: libraylib.module_textures)
+
+# text
+#
+for t: c{* -text_3d_drawing}
+{
+  ./: exe{example-$name($t)}: include = ($m_text   && \
+                                         $m_shapes)
+  exe{example-$name($t)}: $t $libs file{resources/**}
+}
+
+# text_3d_drawing renders a 3D scene (DrawCubeV/DrawGrid from rmodels).
+./: exe{example-text_3d_drawing}: include = ($m_text   && \
+                                             $m_shapes && \
+                                             $m_models)
+exe{example-text_3d_drawing}: \
+  c{text_3d_drawing} $libs file{resources/**}

@@ -1,0 +1,47 @@
+import! [metadata] raylib = libraylib%lib{raylib}
+
+# Some demos compile raygui with RAYGUI_IMPLEMENTATION; the shared library's
+# USE_LIBTYPE_SHARED exports RLAPI as dllimport, conflicting with the in-TU
+# definition (MSVC C4273). Force static linking.
+#
+import libs = libraylib%liba{raylib}
+
+m_audio    = $($raylib: libraylib.module_audio)
+m_models   = $($raylib: libraylib.module_models)
+m_shapes   = $($raylib: libraylib.module_shapes)
+m_text     = $($raylib: libraylib.module_text)
+m_textures = $($raylib: libraylib.module_textures)
+
+# core: split on 3D geometry -- camera/picking examples use DrawCube/DrawGrid/
+# DrawSphere from rmodels.
+#
+for t: c{* -core_2d_camera_mouse_zoom              \
+           -core_3d_camera_first_person            \
+           -core_3d_camera_fps                     \
+           -core_3d_camera_free                    \
+           -core_3d_camera_mode                    \
+           -core_3d_camera_split_screen            \
+           -core_3d_picking                        \
+           -core_vr_simulator                      \
+           -core_world_screen}
+{
+  ./: exe{example-$name($t)}: include = ($m_text && \
+                                         $m_shapes)
+  exe{example-$name($t)}: $t $libs file{resources/**}
+}
+
+for t: c{core_2d_camera_mouse_zoom   \
+         core_3d_camera_first_person \
+         core_3d_camera_fps          \
+         core_3d_camera_free         \
+         core_3d_camera_mode         \
+         core_3d_camera_split_screen \
+         core_3d_picking             \
+         core_vr_simulator           \
+         core_world_screen}
+{
+  ./: exe{example-$name($t)}: include = ($m_text   && \
+                                         $m_shapes && \
+                                         $m_models)
+  exe{example-$name($t)}: $t $libs file{resources/**}
+}

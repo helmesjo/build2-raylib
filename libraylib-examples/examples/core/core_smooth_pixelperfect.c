@@ -1,0 +1,1 @@
+../../../upstream/examples/core/core_smooth_pixelperfect.c
