@@ -1,0 +1,9 @@
+examples/audio     symlink=dir
+examples/buildfile symlink=dir
+examples/core      symlink=dir
+examples/models    symlink=dir
+examples/others    symlink=dir
+examples/shaders   symlink=dir
+examples/shapes    symlink=dir
+examples/text      symlink=dir
+examples/textures  symlink=dir
