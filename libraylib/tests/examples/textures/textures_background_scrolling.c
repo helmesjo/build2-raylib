@@ -1,1 +1,0 @@
-../../../../upstream/examples/textures/textures_background_scrolling.c

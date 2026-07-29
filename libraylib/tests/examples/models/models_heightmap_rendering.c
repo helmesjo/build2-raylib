@@ -1,1 +1,0 @@
-../../../../upstream/examples/models/models_heightmap_rendering.c

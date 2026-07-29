@@ -1,1 +1,0 @@
-../../../../upstream/examples/core/core_text_file_loading.c

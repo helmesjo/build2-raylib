@@ -1,1 +1,0 @@
-../../../../upstream/examples/shapes/shapes_clock_of_clocks.c

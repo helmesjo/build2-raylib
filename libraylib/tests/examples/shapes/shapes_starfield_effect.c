@@ -1,1 +1,0 @@
-../../../../upstream/examples/shapes/shapes_starfield_effect.c

@@ -1,1 +1,0 @@
-../../../../upstream/examples/text/text_words_alignment.c

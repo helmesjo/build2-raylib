@@ -1,1 +1,0 @@
-../../../../upstream/examples/shaders/shaders_eratosthenes_sieve.c

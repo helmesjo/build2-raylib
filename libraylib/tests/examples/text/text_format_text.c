@@ -1,1 +1,0 @@
-../../../../upstream/examples/text/text_format_text.c

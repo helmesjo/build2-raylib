@@ -1,1 +1,0 @@
-../../../../upstream/examples/models/models_first_person_maze.c

@@ -1,1 +1,0 @@
-../../../../upstream/examples/textures/textures_image_channel.c

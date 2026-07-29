@@ -1,1 +1,0 @@
-../../../../upstream/examples/text/text_unicode_emojis.c

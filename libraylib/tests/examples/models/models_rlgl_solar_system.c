@@ -1,1 +1,0 @@
-../../../../upstream/examples/models/models_rlgl_solar_system.c

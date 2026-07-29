@@ -1,1 +1,0 @@
-../../../../upstream/examples/textures/textures_npatch_drawing.c

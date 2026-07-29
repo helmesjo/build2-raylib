@@ -1,1 +1,0 @@
-../../../../upstream/examples/core/core_3d_camera_first_person.c

@@ -1,1 +1,0 @@
-../../../../upstream/examples/shaders/shaders_color_correction.c

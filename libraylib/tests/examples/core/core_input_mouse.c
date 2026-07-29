@@ -1,1 +1,0 @@
-../../../../upstream/examples/core/core_input_mouse.c

@@ -1,1 +1,0 @@
-../../../../upstream/examples/shapes/shapes_rounded_rectangle_drawing.c

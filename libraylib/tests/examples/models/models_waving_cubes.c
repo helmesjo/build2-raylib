@@ -1,1 +1,0 @@
-../../../../upstream/examples/models/models_waving_cubes.c

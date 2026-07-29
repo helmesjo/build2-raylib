@@ -1,1 +1,0 @@
-../../../../upstream/examples/core/core_basic_screen_manager.c

@@ -1,1 +1,0 @@
-../../../../upstream/examples/shaders/shaders_palette_switch.c

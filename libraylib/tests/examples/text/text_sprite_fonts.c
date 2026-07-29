@@ -1,1 +1,0 @@
-../../../../upstream/examples/text/text_sprite_fonts.c

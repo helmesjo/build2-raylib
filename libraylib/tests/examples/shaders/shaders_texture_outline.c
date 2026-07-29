@@ -1,1 +1,0 @@
-../../../../upstream/examples/shaders/shaders_texture_outline.c

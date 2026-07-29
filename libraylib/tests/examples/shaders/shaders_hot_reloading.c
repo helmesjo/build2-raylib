@@ -1,1 +1,0 @@
-../../../../upstream/examples/shaders/shaders_hot_reloading.c

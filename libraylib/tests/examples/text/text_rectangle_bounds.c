@@ -1,1 +1,0 @@
-../../../../upstream/examples/text/text_rectangle_bounds.c

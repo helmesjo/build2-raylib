@@ -1,1 +1,0 @@
-../../../../upstream/examples/models/models_tesseract_view.c

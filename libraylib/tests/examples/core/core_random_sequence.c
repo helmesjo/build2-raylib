@@ -1,1 +1,0 @@
-../../../../upstream/examples/core/core_random_sequence.c

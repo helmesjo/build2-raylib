@@ -1,1 +1,0 @@
-../../../../upstream/examples/shapes/shapes_math_sine_cosine.c

@@ -1,1 +1,0 @@
-../../../../upstream/examples/textures/textures_mouse_painting.c

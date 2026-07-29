@@ -1,1 +1,0 @@
-../../../../upstream/examples/core/core_custom_logging.c

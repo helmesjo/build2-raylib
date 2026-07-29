@@ -1,1 +1,0 @@
-../../../../upstream/examples/others/embedded_files_loading.c

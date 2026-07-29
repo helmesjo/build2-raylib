@@ -1,1 +1,0 @@
-../../../../upstream/examples/textures/textures_polygon_drawing.c

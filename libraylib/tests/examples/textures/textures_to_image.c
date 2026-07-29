@@ -1,1 +1,0 @@
-../../../../upstream/examples/textures/textures_to_image.c

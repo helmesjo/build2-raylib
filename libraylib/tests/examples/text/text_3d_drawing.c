@@ -1,1 +1,0 @@
-../../../../upstream/examples/text/text_3d_drawing.c

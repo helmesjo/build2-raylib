@@ -1,1 +1,0 @@
-../../../../upstream/examples/textures/textures_fog_of_war.c
