@@ -31,7 +31,8 @@
 #
 compile_commands.json
 
-raylib-tools
+rexm/rexm
+rlparser/rlparser
 
 # Testscript output directory (can be symlink).
 #
