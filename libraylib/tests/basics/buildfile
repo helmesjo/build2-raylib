@@ -1,6 +1,7 @@
+import! [metadata, rule_hint=c.link] raylib = libraylib%lib{raylib}
 import libs = libraylib%lib{raylib}
 
 # driver.c calls TextIsEqual() and TextLength() from rtext.
 #
-./: exe{driver}: include = $config.libraylib.module_text
+./: exe{driver}: include = $($raylib: libraylib.module_text)
 exe{driver}: {h c}{**} $libs testscript{**}
