@@ -1,0 +1,19 @@
+: 1
+name: libraylib-examples
+version: 6.0.0-a.0.z
+type: exe
+language: c
+project: raylib
+summary: raylib official examples
+license: Zlib
+description-file: README.md
+package-description-file: PACKAGE-README.md
+url: https://www.raylib.com
+doc-url: https://www.raylib.com
+src-url: https://github.com/raysan5/raylib
+email: raysan5@gmail.com
+package-url: https://github.com/build2-packaging/raylib
+package-email: packaging@build2.org
+topics: games, graphics, multimedia, opengl
+depends: * build2 >= 0.17.0
+depends: * bpkg >= 0.17.0

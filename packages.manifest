@@ -3,3 +3,6 @@ location: libraylib/
 
 :
 location: raylib-tools/
+
+:
+location: libraylib-examples/
